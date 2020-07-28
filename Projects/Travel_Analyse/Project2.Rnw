@@ -1,0 +1,165 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} 
+\begin{document}
+\title{Praca projektowa nr 2 \\ Rozwiązanie zadań \\ Maciej Chylak 305699 IAD}
+\author{}
+\date{}
+\maketitle
+
+\section{Wprowadzenie}
+
+<<include=FALSE>>=
+source("Chylak_Maciej_305699_Maaco_pp2.R")
+library("ggplot2")
+library("sqldf")
+library("dplyr")
+library("data.table")
+library("microbenchmark")
+@
+Tytułem wstępu chciałbym napomnieć, iż ocena pomiaru niżej wymienionych \newline rozwiązań zadań jest zależna 
+od kilku czynników, z których główną rolę \newline odgrywa implementacja poszczególnych funkcji. 
+ Warto także wziąć pod \newline uwagę fakt, iż funkcję z rodziny df\_table jako argument przyjmują ramki 
+danych wczytane w formacie data.table, 
+co może również znacząco wpłynąć na ostateczny rezultat. 
+\newline
+\newline
+Z uzyskaniem poprawnych rezultatów w każdym zadaniu najlepiej poradziły \newline sobie funkcje z rodziny data\_table. Niemniej jednak funkcje te mają jedną poważną wadę, mianowicie odchylenie standardowe, w porównaniu z innymi \newline sposobami  rozwiązania zadania, w każdej z tych funkcji było największe, zatem istnieję niezerowa szansa na to, że nasze rozwiązanie w pewnych przypadkach nie okaże się być tym najszybszym.
+\newline 
+\newline
+Z kolej jeżeli chodzi o funkcje z rodziny df\_dplyr, wyniki również okazały się być zadowalające. Plusem dla tego typu implementacji jest klarowność opisu, 
+\newline 
+\newline
+Funkcje z rodziny df\_base  były w podobnym stopniu skuteczne jak w \newline przypadku df\_dplyr. Wyjątek stanowiły df\_base\_5 oraz df\_base\_6, w których to pod kątem prędkości, być może z powodu niewłaściwej implementacji, wypadły najgorzej z całej czwórki. 
+\newline 
+\newline
+Jeżeli chodzi o funkcje z rodziny df\_sql, to pod względem prędkości wypadły one najgorzej. Jednak podobnie jak w przypadku funkcji z rodziny df\_dplyr ich składnia jest bardzo przejrzysta. 
+
+\section{Zadanie 01 }
+\subsection{Treść}
+Wybierz te wiersze z ramki Posts, w których PostTypeId = 1, FavoriteCount >= 25 i ViewCount >= 1000, a następnie wybierz kolumny Title, Score, ViewCount, FavouriteCount
+\subsection{Wynik}
+<<echo=FALSE>>=
+head(df_table_1(Poststab), 3)
+@
+\subsection{Sprawdzenie poprawności każdej funkcji}
+<<>>=
+c(dplyr::all_equal(df_base_1(Posts), df_sql_1(Posts)) + dplyr::all_equal(df_sql_1(Posts), df_table_1(Poststab)) + dplyr::all_equal(df_table_1(Poststab), df_dplyr_1(Posts))) == 3
+@
+\subsection{Porównanie czasowe}
+<<echo=FALSE>>=
+microbenchmark::microbenchmark(
+  sqldf = df_sql_1(Posts),
+  base = df_base_1(Posts),
+  dplyr = df_dplyr_1(Posts),
+  data.table = df_table_1(Poststab)
+)
+@
+
+
+\newpage
+\section{Zadanie 02 }
+\subsection{Treść}
+Złącz wewnętrznie ramkę Tags z ramką Posts według atrybutów Id z ramki Posts oraz WikiPostId z ramki Tags. Następnie złącz wewnętrznie z ramką utworzoną z ramki Users, w której OwnerUserId jest różne od -1, według atrybutów AccountId z ramki Users oraz OwnerUserId z ramki Posts. Posortuj malejąco według Count. Wybierz kolumny TagName, Count, OwnerUserId, Age, Location, DisplayName.
+\subsection{Wynik}
+<<echo=FALSE>>=
+head(df_table_2(Tagstab, Poststab, Userstab), 3)
+@
+\subsection{Sprawdzenie poprawności każdej funkcji}
+<<>>=
+c(dplyr::all_equal(df_base_2(Tags, Posts, Users), df_sql_2(Tags, Posts, Users)) + dplyr::all_equal(df_sql_2(Tags, Posts, Users), df_table_2(Tagstab, Poststab, Userstab)) + dplyr::all_equal(df_table_2(Tagstab, Poststab, Userstab), df_dplyr_2(Tags, Posts, Users))) == 3
+@
+\subsection{Porównanie czasowe}
+<<echo=FALSE>>=
+microbenchmark::microbenchmark(
+  sqldf = df_sql_2(Tags, Posts, Users),
+  base = df_base_2(Tags, Posts, Users),
+  dplyr = df_dplyr_2(Tags, Posts, Users),
+  data.table = df_table_2(Tagstab, Poststab, Userstab)
+)
+@
+\newpage
+\section{Zadanie 03 }
+\subsection{Treść}
+Zlicz jako NumLinks liczbę wystąpień w ramce PostLinks pogrupowanej według RelatedPostId każdego z RelatedPostId. Wybierz kolumnę RelatedPostId jako PostId oraz NumLinks. Powstałą ramki jako RelatedTab złącz wewnętrznie z ramką utworzoną z ramki Posts, w której PostTypeId = 1, według atrybutów PostId z ramki RelatedTab oraz Id z ramki Posts.  Posortuj malejąco według NumLinks. Wybierz kolumny Title, NumLinks
+\subsection{Wynik}
+<<echo=FALSE>>=
+head(df_table_3(Poststab, PostLinkstab), 3)
+@
+\subsection{Sprawdzenie poprawności każdej funkcji}
+<<>>=
+c(dplyr::all_equal(df_base_3(Posts, PostLinks), df_sql_3(Posts, PostLinks)) + dplyr::all_equal(df_sql_3(Posts, PostLinks), df_table_3(Poststab, PostLinkstab)) + dplyr::all_equal(df_table_3(Poststab, PostLinkstab), df_dplyr_3(Posts, PostLinks))) == 3
+@
+\subsection{Porównanie czasowe}
+<<echo=FALSE>>=
+microbenchmark::microbenchmark(
+  sqldf = df_sql_3(Posts, PostLinks),
+  base = df_base_3(Posts, PostLinks),
+  dplyr = df_dplyr_3(Posts, PostLinks),
+  data.table = df_table_3(Poststab, PostLinkstab)
+)
+@
+\newpage
+\section{Zadanie 04}
+\subsection{Treść}
+Z ramki Badges wybierz te wiersze, dla których Class = 1. Pogrupuj według Name, a następnie wybierz te, dla których liczba wystąpień danego Name należy do przedziału od 2 do 10. Wybierz kolumne Name. Z ramki Badges wybierz te wiersze, których Name należy do wybranych wcześniej wartości z kolumny Name oraz Class = 1. Wybierz kolumny Name, UserId. Powstałą ramkę jako ValuableBadges złącz wewnętrznie z ramką Users weðług atrybutów UserdId z ramki ValuableBadges oraz Id z ramki Users. Wybierz kolumny Id, DisplayName, Reputation, Age, Location.
+\subsection{Wynik}
+<<echo=FALSE>>=
+head(df_table_4(Userstab, Badgestab), 3)
+@
+\subsection{Sprawdzenie poprawności każdej funkcji}
+<<>>=
+c(dplyr::all_equal(df_base_4(Users, Badges), df_sql_4(Users, Badges)) + dplyr::all_equal(df_sql_4(Users, Badges), df_table_4(Userstab, Badgestab)) + dplyr::all_equal(df_table_4(Userstab, Badgestab), df_dplyr_4(Users, Badges))) == 3
+@
+\subsection{Porównanie czasowe}
+<<echo=FALSE>>=
+microbenchmark::microbenchmark(
+  sqldf = df_sql_4(Users, Badges),
+  base = df_base_4(Users, Badges),
+  dplyr = df_dplyr_4(Users, Badges),
+  data.table = df_table_4(Userstab, Badgestab)
+)
+@
+\newpage
+\section{Zadanie 05}
+\subsection{Treść}
+Zlicz jako UpVotes liczbę wystąpień w ramce powstałej z ramki Votes, w której VoteTypeId = 2, każdego z PostId. Wybierz kolumny PostId oraz UpVotes jako UpVotesTab. Zlicz jako DownVotes liczbę wystąpień w ramce powstałej z ramki Votes, w której VoteTypeId = 3, każdego z PostId. Wybierz kolumny PostId oraz DownVotes jako DownVotesTab. Złącz lewostronnie ramke UpVotesTab z DownVotesTab według argumentu PostId. Wartości NULL w kolumnie DownVotes zamień na 0 jako. Wybierz kolumny PostId. UpVotes oraz DownVotes. 
+\subsection{Wynik}
+<<echo=FALSE>>=
+head(df_table_5(Votestab), 3)
+@
+\subsection{Sprawdzenie poprawności każdej funkcji}
+<<>>=
+c(dplyr::all_equal(df_base_5(Votes), df_sql_5(Votes)) + dplyr::all_equal(df_sql_5(Votes), df_table_5(Votestab)) + dplyr::all_equal(df_table_5(Votestab), df_dplyr_5(Votestab))) == 3
+@
+\subsection{Porównanie czasowe}
+<<echo=FALSE>>=
+microbenchmark::microbenchmark(
+  sqldf = df_sql_5(Votes),
+  base = df_base_5(Votes),
+  dplyr = df_dplyr_5(Votes),
+  data.table = df_table_5(Votestab)
+)
+@
+\newpage
+\section{Zadanie 06}
+\subsection{Treść}
+Zlicz jako UpVotes liczbę wystąpień w ramce powstałej z ramki Votes, w której VoteTypeId = 2, każdego z PostId. Wybierz kolumny PostId oraz UpVotes jako UpVotesTab. Zlicz jako DownVotes liczbę wystąpień w ramce powstałej z ramki Votes, w której VoteTypeId = 3, każdego z PostId. Wybierz kolumny PostId oraz DownVotes jako DownVotesTab. Złącz lewostronnie ramke UpVotesTab z DownVotesTab według argumentu PostId. Wartości NULL w kolumnie DownVotes zamień na 0. Wybierz kolumny PostId. UpVotes oraz DownVotes. Zlicz jako DownVotes liczbę wystąpień w ramce powstałej z ramki Votes, w której VoteTypeId = 3, każdego z PostId. Wybierz kolumny PostId oraz DownVotes jako DownVotesTab. Zlicz jako UpVotes liczbę wystąpień w ramce powstałej z ramki Votes, w której VoteTypeId = 2, każdego z PostId. Wybierz kolumny PostId oraz UpVotes jako UpVotesTab. Złącz lewostronnie ramke DownVotesTab z UpVotesTab według argumentu PostId. Wartości NULL w kolumnie UpVotes zamień na 0. Wybierz kolumny PostId. UpVotes oraz DownVotes. Wyznacz unie wyżej obu ramek. Dodaj kolumne UpVotes - DownVotes jako Votes. Wybierz kolumny PostId oraz Votes.
+\subsection{Wynik}
+<<echo=FALSE>>=
+head(df_table_6(Votestab), 3)
+@
+\subsection{Sprawdzenie poprawności każdej funkcji}
+<<>>=
+c(dplyr::all_equal(df_base_6(Votes), df_sql_6(Votes)) + dplyr::all_equal(df_sql_6(Votes), df_table_6(Votestab)) + dplyr::all_equal(df_table_6(Votestab), df_dplyr_6(Votes))) == 3
+@
+\subsection{Porównanie czasowe}
+<<echo=FALSE>>=
+microbenchmark::microbenchmark(
+  sqldf = df_sql_6(Votes),
+  base = df_base_6(Votes),
+  dplyr = df_dplyr_6(Votes),
+  data.table = df_table_6(Votestab)
+)
+@
+\end{document}

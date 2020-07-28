@@ -1,0 +1,218 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+---
+title: "Chylak_Maciej_305699_Maaco_pp1"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r, include=FALSE}
+source("Chylak_Maciej_305699_Maaco_pp1.R")
+```
+
+### Praca projektowa nr 1 
+
+### Rozwiązanie zadan
+
+### Maciej Chylak 305699 IAD
+
+
+# 1.Calka
+
+## Opis
+
+Funkcja pozwalająca przybliżyć całkę oznaczoną funkcji **f** na przedziale **[a,b]** przy użyciu metody trapezów. 
+
+## Użycie
+
+calka(f, a, b, n)
+
+calka(f, a, b)
+
+## Argumenty
+
+**f** - Funkcja, której całkę chcemy przybliżyć.
+
+**a** - Liczba rzeczywista. Lewy kraniec przedziału całkowania funkcji, według której chcemy policzyć całkę oznaczoną.
+
+**b** - Liczba rzeczywista. Prawy kraniec przedziału całkowania funkcji, według której chcemy policzyć całkę oznaczoną.
+
+**n** - Liczba naturalna większa od zera. Liczba punktów podziałowych przedziału **[a,b]**.
+
+## Wartość
+
+Całka oznaczona funkcji **f** na przedziale **[a,b]**. *Integer* jeżeli to możliwe, w pozostałych przypadkach *double*.
+
+## Przykłady
+
+Domyślne użycie calka:
+
+```{r}
+calka(function(x){x^2 + 2}, 1, 6, 100)
+```
+
+Użycie calka bez podania argumentu *n* (domyślnie ustawiony *n* = 100):
+
+```{r}
+calka(function(x){2*x - 10}, 1, 6)
+```
+
+Użycie calka z wbudowaną funkcją *sin*: 
+```{r}
+calka(sin, 1, 6, 100)
+```
+Złe użycie calka. *n* musi być większe od zera
+```{r eval=FALSE}
+calka(sin, 1, 6, -2)
+```
+Złe użycie całka. *n* musi być liczbą naturalną.
+```{r eval=FALSE}
+calka(sin, 1, 6, 0.5)
+```
+
+
+# 2.Sklej
+
+## Opis
+
+Funkcja pozwalająca nam skleić **i-te** elementy wszystkich wektorów z listy **x**. Poszczególne elementy zostają  oddzielone znakiem określonym przez parametr **sep**.
+
+## Użycie
+
+sklej(x, sep)
+
+sklej(x)
+
+## Argumenty
+
+**x** - Lista zawierająca wektory napisów o tej samej długości.
+
+**sep** - Napis oddzielający poszczególne elementy sklejanych napisów. Domyślne ustawiony jako: " ". 
+
+## Wartość
+
+Wektor sklejonych napisów.
+
+## Przykłady
+
+Domyślne użycie sklej:
+
+```{r}
+sklej(list(c("a", "b", "c"), c("1", "2", "3")), ".")
+```
+
+Użycie sklej bez podania argumentu *sep* (domyślnie ustawiony *sep* = ""):
+
+```{r}
+sklej(list(c("a", "b", "c"), c("1", "2", "3")))
+```
+
+Przykład złego użycia funkcji sklej. *x* powinien być listą: 
+```{r eval=FALSE}
+sklej(c("a", "b", "c"), ".")
+```
+
+Przykład złego użycia funkcji sklej. *sep* powinien być napisem: 
+```{r eval=FALSE}
+sklej(list(c("a", "b", "c"), c("1", "2", "3")), 1)
+```
+
+
+# 3. Repr.macierz
+
+## Opis
+
+Funkcja przekształcająca podaną macierz rzadką **x** , czyli taką, dla której większość komórek zawiera wartości zerowe, do macierzy składającej się z trzech kolumn reprezentujących wiersz i kolumne, w którym niezerowy element się znajduję, oraz jego wartość. Za element niezerowy uznaję się taki, który różni się co najmniej o **eps** od zera.
+
+## Użycie
+
+repr_macierz(x, eps)
+
+repr_macierz(x)
+
+## Argumenty
+
+**x** - Macierz liczbowa, którą będziemy przekształcali.
+
+**eps** - Liczba rzeczywista nieujemna. Najmniejsza liczba uznawana za niezerową co do wartości bezwzględnej. Domyślnie **eps** = 1e-16.
+
+## Wartość
+
+Macierz posiadająca trzy kolumny: *row*, *col* oraz *value* oraz *k* wierszy, gdzie *k* oznacza liczbe elementów uznanych jako niezerowe.
+Wartości w kolumnach *row* oraz *col* reprezentują, w którym wierszu oraz kolumnie znajduję się niezerowy element, a *value* określa wartość tego elementu. 
+
+## Przykłady
+
+Domyślne użycie repr_macierz:
+
+```{r}
+repr_macierz(matrix(c(0, 0.00005, 0.01, 0.00001, 2, 4, 1, 2, 0.004, 0.1), ncol = 2), 0.01)
+```
+
+Użycie repr_macierz bez podania argumentu *eps* (domyślnie ustawiony *eps* = 0.01):
+
+```{r}
+repr_macierz(matrix(c(0, 0.00005, 0.01, 0.00001, 2, 4, 1, 2, 0.004, 0.1), ncol = 2))
+```
+
+Przykład złego użycia funkcji repr_matrix. *x* powinien być macierzą: 
+```{r eval=FALSE}
+repr_macierz(list(c(1,2, 4)), 0.01)
+```
+
+Przykład złego użycia funkcji repr_matrix. *eps* powinno być większe bądź równe 0: 
+```{r eval=FALSE}
+repr_macierz(matrix(c(0, 0.00005, 0.01, 0.00001, 2, 4, 1, 2, 0.004, 0.1), ncol = 2), -1)
+```
+
+# 4. Logiderle
+
+## Opis
+
+Funkcja sprawdzająca, czy istnieje takie **p**, że element wektora **1:n** należy do przedziału **[i~p~, j~p~]**. W przypadku powodzenia zwraca *TRUE*, w przeciwnym przypadku *FALSE*.
+
+## Użycie
+
+logiderle(i, j, n)
+
+## Argumenty
+
+**i** - Wektor całkowitoliczbowy długości **k**, taki, że dla każdego p:  1 <= i~p~ <= j~p~ oraz i~p+1~ > j~p~. Wartości tego wektora będą tworzyły lewy kraniec przedziału.
+
+**j** - Wektor całkowitoliczbowy długośći **k** taki, że dla każdego p:   1 <= i~p~ <= j~p~ oraz i~p+1~ > j~p~. Wartości tego wektora będą tworzyły prawy kraniec przedziału. 
+
+**n** - Liczba całkowita dodatnia. Wartość ta przyczyni się do stworzenia wektora liczbowego postaci *1:n* oraz określi długość wektora wynikowego.
+
+## Wartość
+
+Wektor logiczny długości n. 
+
+## Przykłady
+
+Domyślne użycie logiderle:
+
+```{r}
+logiderle(c(1, 3, 6), c(1, 4, 9), 11)
+```
+
+Przykład złego użycia funkcji logiderle. dla każdego *p* i~p~ ma byc niewiększe od j~p~: 
+```{r eval=FALSE}
+logiderle(c(1, 3, 6), c(1, 2, 9), 11)
+```
+
+Przykład złego użycia funkcji logiderle. dla każdego *p* i~p+1~ ma byc większe od j~p~: 
+```{r eval=FALSE}
+logiderle(c(1, 1, 6), c(1, 1, 9), 11)
+```
+
+
+
+
+

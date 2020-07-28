@@ -1,0 +1,159 @@
+
+---
+title: "Praca Projektowa nr 3"
+author: "Janus Dawid Chylak Maciek"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+source("Janus_Dawid_305742_Chylak_Maciek_305699_pp3.R")
+
+```
+
+### Głównym problemem, jaki postanowiliśmy przeanalizować, jest wpływ pandemii na używanie rowerów miejskich przez mieszkańców Nowego Yorku i Jersey City. Większość naszych wykresów przedstawia dane z miesięcy Luty-Kwiecień bieżacego roku oraz dla porównania te same miesiące z poprzedniego roku, w którym oczywiście nie było żadnej pandemii.
+
+
+## ZALEŻNOŚĆ LICZBY WYCIECZEK OD WIEKU
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+facet_wiek(NYC_2019_luty,
+           NYC_2019_marzec,
+           NYC_2019_kwiecien,
+           NYC_2020_luty,
+           NYC_2020_marzec,
+           NYC_2020_kwiecien,0, "Nowy York")
+```
+
+## ZALEŻNOŚĆ DŁUGOŚCI WYCIECZEK OD WIEKU
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+
+
+facet_wiek(NYC_2019_luty,
+           NYC_2019_marzec,
+           NYC_2019_kwiecien,
+           NYC_2020_luty,
+           NYC_2020_marzec,
+           NYC_2020_kwiecien,1, "Nowy York")
+```
+
+## ZALEŻNOŚĆ LICZBY WYCIECZEK OD WIEKU
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+facet_wiek(JC_2019_luty,
+           JC_2019_marzec,
+           JC_2019_kwiecien,
+           JC_2020_luty,
+           JC_2020_marzec,
+           JC_2020_kwiecien,0, "Jersey City")
+
+```
+
+## ZALEŻNOŚĆ DŁUGOŚCI WYCIECZEK OD WIEKU
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+
+facet_wiek(JC_2019_luty,
+           JC_2019_marzec,
+           JC_2019_kwiecien,
+           JC_2020_luty,
+           JC_2020_marzec,
+           JC_2020_kwiecien,1, "Jersey City")
+```
+
+## ZALEŻNOŚĆ LICZBY WYCIECZEK OD GODZINY PRZEJAZDU
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+starttime_hour(NYC_2019_luty,NYC_2019_marzec,NYC_2019_kwiecien,NYC_2020_luty,NYC_2020_marzec,NYC_2020_kwiecien,"Nowy York")
+
+starttime_hour(JC_2019_luty,JC_2019_marzec,JC_2019_kwiecien,JC_2020_luty,JC_2020_marzec,JC_2020_kwiecien,"Jersey City")
+
+```
+
+## ZALEŻNOŚĆ LICZBY WYCIECZEK OD PŁCI W DANYCH MIESIĄCACH
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+ggarrange(ilosc_czas_plec(NYC_2019_luty,NYC_2019_marzec, NYC_2019_kwiecien ,0, "Nowy York 2019"),ilosc_czas_plec(NYC_2020_luty,NYC_2020_marzec, NYC_2020_kwiecien ,0, "Nowy York 2020"))
+
+```
+
+## ZALEŻNOŚĆ DŁUGOŚCI WYCIECZEK OD PŁCI W DANYCH MIESIĄCACH
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+ggarrange(ilosc_czas_plec(NYC_2019_luty,NYC_2019_marzec, NYC_2019_kwiecien ,1, "Nowy York 2019"),ilosc_czas_plec(NYC_2020_luty,NYC_2020_marzec, NYC_2020_kwiecien ,1 ,"Nowy York 2020"))
+
+```
+
+## ZALEŻNOŚĆ LICZBY WYCIECZEK OD PŁCI W DANYCH MIESIĄCACH
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+ggarrange(ilosc_czas_plec(JC_2019_luty,JC_2019_marzec, JC_2019_kwiecien ,0, "Jersey City 2019"),ilosc_czas_plec(JC_2020_luty,JC_2020_marzec, JC_2020_kwiecien ,0, "Jersey City 2020"))
+
+```
+
+## ZALEŻNOŚĆ DŁUGOŚCI WYCIECZEK OD PŁCI W DANYCH MIESIĄCACH
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+ggarrange(ilosc_czas_plec(JC_2019_luty,JC_2019_marzec, JC_2019_kwiecien ,1, "Jersey City 2019"),ilosc_czas_plec(JC_2020_luty,JC_2020_marzec, JC_2020_kwiecien ,1, "Jersey City 2020"))
+
+```
+
+## ZALEŻNOŚĆ LICZBY WYCIECZEK OD OPADÓW W POSZCZEGÓLNYCH DNIACH MIESIĄCA
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+ggarrange(rain(y, "NYC_marzec_2019"), rain(x, "NYC_kwiecien_2019"), ncol = 1, nrow = 2)
+
+```
+
+## ZALEŻNOŚĆ LICZBY WYCIECZEK OD TYPU KONSUMENTA
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+ggarrange(subscriber_type(NYC_2019_kwiecien, NYC_2019_marzec, NYC_2019_luty),subscriber_type(NYC_2020_kwiecien,NYC_2020_marzec,NYC_2020_luty), ncol = 1)
+
+```
+
+## NAJCZĘŚCIEJ UCZĘSZCZANE TRASY 
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+ggarrange(number_of_routes_to_plot(number_of_routes1(NYC_2018_luty)), number_of_routes_to_plot(number_of_routes1(NYC_2019_luty)), ncol=1, nrow=2)
+
+ggarrange(number_of_routes_to_plot(number_of_routes1(NYC_2018_sierpien)), number_of_routes_to_plot(number_of_routes1(NYC_2019_sierpien)), ncol=1, nrow=2)
+
+```
+
+### NYC_2018_LUTY 
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+number_of_routes1_to_map(number_of_routes1(NYC_2018_luty)) 
+
+```
+
+### NYC_2019_LUTY 
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+number_of_routes1_to_map(number_of_routes1(NYC_2019_luty)) 
+
+```
+
+### NYC_2018_SIERPIEN 
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+number_of_routes1_to_map(number_of_routes1(NYC_2018_sierpien))
+
+```
+
+### NYC_2019_SIERPIEN 
+
+```{r, results='asis',echo=FALSE, warning=FALSE}
+number_of_routes1_to_map(number_of_routes1(NYC_2019_sierpien))
+
+```
+
+
+
+
