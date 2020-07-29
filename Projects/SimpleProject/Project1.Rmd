@@ -8,21 +8,16 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ---
-title: "Chylak_Maciej_305699_Maaco_pp1"
+title: "Project1.R"
 output:
   pdf_document: default
   html_document: default
 ---
 ```{r, include=FALSE}
-source("Chylak_Maciej_305699_Maaco_pp1.R")
+source("Project1.R")
 ```
 
 ### Praca projektowa nr 1 
-
-### Rozwiązanie zadan
-
-### Maciej Chylak 305699 IAD
-
 
 # 1.Calka
 
