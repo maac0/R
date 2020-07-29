@@ -1,6 +1,6 @@
-### Praca projektowa nr 3
-### Rozwiązanie zadan
-### Dawid Janus 305742 Maciek Chylak 305699 kierunek IAD
+### Citibike_Data_Analyse
+
+### Dawid Janus Maciek Chylak 
 
 library(dplyr)
 library(ggplot2)
@@ -23,21 +23,21 @@ bledne_dane_NYC<-function(arg){
   bez_bledow
 }
 
-NYC_2020_kwiecien <- read.csv("rowery/202004-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2020_marzec <- read.csv("rowery/202003-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2020_luty <- read.csv("rowery/202002-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2018_sierpien <- read.csv("rowery/201808-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2019_sierpien <- read.csv("rowery/201908-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2018_luty <- read.csv("rowery/201802-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2019_luty <- read.csv("rowery/201902-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2019_marzec <- read.csv("rowery/201903-citibike-tripdata.csv") %>% bledne_dane_NYC()
-NYC_2019_kwiecien <- read.csv("rowery/201904-citibike-tripdata.csv") %>% bledne_dane_NYC()
-JC_2020_kwiecien <- read.csv("rowery/JC-202004-citibike-tripdata.csv") %>% bledne_dane_JC()
-JC_2020_marzec <- read.csv("rowery/JC-202003-citibike-tripdata.csv") %>% bledne_dane_JC()
-JC_2020_luty <- read.csv("rowery/JC-202002-citibike-tripdata.csv")%>% bledne_dane_JC()
-JC_2019_kwiecien <- read.csv("rowery/JC-201904-citibike-tripdata.csv") %>% bledne_dane_JC()
-JC_2019_marzec <- read.csv("rowery/JC-201903-citibike-tripdata.csv") %>% bledne_dane_JC()
-JC_2019_luty <- read.csv("rowery/JC-201902-citibike-tripdata.csv") %>% bledne_dane_JC()
+NYC_2020_kwiecien <- read.csv("202004-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2020_marzec <- read.csv("202003-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2020_luty <- read.csv("202002-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2018_sierpien <- read.csv("201808-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2019_sierpien <- read.csv("201908-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2018_luty <- read.csv("201802-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2019_luty <- read.csv("201902-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2019_marzec <- read.csv("201903-citibike-tripdata.csv") %>% bledne_dane_NYC()
+NYC_2019_kwiecien <- read.csv("201904-citibike-tripdata.csv") %>% bledne_dane_NYC()
+JC_2020_kwiecien <- read.csv("JC-202004-citibike-tripdata.csv") %>% bledne_dane_JC()
+JC_2020_marzec <- read.csv("JC-202003-citibike-tripdata.csv") %>% bledne_dane_JC()
+JC_2020_luty <- read.csv("JC-202002-citibike-tripdata.csv")%>% bledne_dane_JC()
+JC_2019_kwiecien <- read.csv("JC-201904-citibike-tripdata.csv") %>% bledne_dane_JC()
+JC_2019_marzec <- read.csv("JC-201903-citibike-tripdata.csv") %>% bledne_dane_JC()
+JC_2019_luty <- read.csv("JC-201902-citibike-tripdata.csv") %>% bledne_dane_JC()
 
 
 
