@@ -10,7 +10,7 @@
 \section{Wprowadzenie}
 
 <<include=FALSE>>=
-source("Chylak_Maciej_305699_Maaco_pp2.R")
+source("TravelData_Analyse.R")
 library("ggplot2")
 library("sqldf")
 library("dplyr")
