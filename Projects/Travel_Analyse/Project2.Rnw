@@ -2,7 +2,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc} 
 \begin{document}
-\title{Praca projektowa nr 2 \\ Rozwiązanie zadań \\ Maciej Chylak 305699 IAD}
+\title{Travel_Analyse}
 \author{}
 \date{}
 \maketitle
